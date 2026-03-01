@@ -3,6 +3,11 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import io
+import os 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+tf.config.threading.set_intra_op_parallelism_threads(1)
+tf.config.threading.set_inter_op_parallelism_threads(1)
 
 app = FastAPI()
 
@@ -53,4 +58,5 @@ async def predict(file: UploadFile = File(...)):
         "praga": CLASS_NAMES[predicted_class_idx],
         "confianca": float(confianca),
         "mensagem": "Análise concluída com sucesso"
+
     }
